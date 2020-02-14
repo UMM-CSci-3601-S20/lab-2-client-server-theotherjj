@@ -11,6 +11,7 @@ public class Server {
 
   public static final String CLIENT_DIRECTORY = "../client";
   public static final String USER_DATA_FILE = "/users.json";
+  public static final String TODOS_DATA_FILE = "/todos.json";
   private static Database userDatabase;
 
   public static void main(String[] args) {
@@ -64,5 +65,14 @@ public class Server {
     }
 
     return userController;
+  }
+
+  private static UserController buildTodoController(){
+    UserController userController = null;
+
+    try{
+      userDatabase = new Database(TODOS_DATA_FILE);
+      userController = new UserController(database);
+    }
   }
 }
