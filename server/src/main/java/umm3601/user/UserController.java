@@ -48,5 +48,16 @@ public class UserController {
     User[] users = database.listUsers(ctx.queryParamMap());
     ctx.json(users);
   }
+/** Get single todo specified by the 'id' parameter in the request */
+  public void getTodos(Context ctx){
+    String id = ctx.pathParam("id", String.class).get();
+    User todos = database.getUser(id);
+    if(todos != null){
+      ctx.json(todos);
+      ctx.status(201);
+    } else {
+      throw new NotFoundResponse("No todos with id " + id + " was found.");
+    }
+  }
 
 }
