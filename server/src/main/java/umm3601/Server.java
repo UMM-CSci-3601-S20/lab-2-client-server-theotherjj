@@ -67,12 +67,5 @@ public class Server {
     return userController;
   }
 
-  private static UserController buildTodoController(){
-    UserController userController = null;
 
-    try{
-      userDatabase = new Database(TODOS_DATA_FILE);
-      userController = new UserController(database);
-    }
-  }
 }
