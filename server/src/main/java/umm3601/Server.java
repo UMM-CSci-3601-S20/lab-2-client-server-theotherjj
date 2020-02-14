@@ -13,6 +13,7 @@ public class Server {
   public static final String USER_DATA_FILE = "/users.json";
   public static final String TODOS_DATA_FILE = "/todos.json";
   private static Database userDatabase;
+  private static Database todoDatabase;
 
 
   public static void main(String[] args) {
@@ -42,7 +43,7 @@ public class Server {
     // List users, filtered using query parameters
     server.get("api/users", ctx -> userController.getUsers(ctx));
 
-    server.get("api/todos", ctx -> userController.getTodos(ctx));
+    server.get("api/todos/:id", ctx -> userController.getTodos(ctx));
   }
 
   /***
@@ -68,19 +69,5 @@ public class Server {
     }
 
     return userController;
-  }
-
-  private static UserController buildTodoController(){
-    UserController userController = null;
-
-    try{
-      userDatabase = new Database(TODOS_DATA_FILE);
-      userController = new UserController(userDatabase);
-    } catch (IOException e){
-      System.err.println("The server failed to load the todo data; shutting down.");
-      e.printStackTrace(System.err);
-
-      System.exit(1);
-    }
   }
 }
