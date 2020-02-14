@@ -49,7 +49,7 @@ public class UserController {
     ctx.json(users);
   }
 /** Get single todo specified by the 'id' parameter in the request */
-  public void getTodos(Context ctx){
+  public void getTodo(Context ctx){
     String id = ctx.pathParam("id", String.class).get();
     User todos = database.getUser(id);
     if(todos != null){
