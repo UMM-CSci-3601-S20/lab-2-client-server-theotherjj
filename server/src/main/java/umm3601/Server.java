@@ -20,6 +20,7 @@ public class Server {
 
     // Initialize dependencies
     UserController userController = buildUserController();
+    UserController todoController = buildTodoController();
 
     Javalin server = Javalin.create(config -> {
       // This tells the server where to look for static files,
@@ -43,7 +44,7 @@ public class Server {
     // List users, filtered using query parameters
     server.get("api/users", ctx -> userController.getUsers(ctx));
 
-    server.get("api/todos/:id", ctx -> userController.getTodos(ctx));
+    server.get("api/todos/:id", ctx -> todoController.getTodo(ctx));
   }
 
   /***
@@ -70,4 +71,23 @@ public class Server {
 
     return userController;
   }
+
+  private static UserController buildTodoController() {
+    UserController todoController = null;
+
+    try {
+      todoDatabase = new Database(TODOS_DATA_FILE);
+      todoController = new UserController(todoDatabase);
+    } catch (IOException e) {
+      System.err.println("The server failed to load the user data; shutting down.");
+      e.printStackTrace(System.err);
+
+      // Exit from the Java program
+      System.exit(1);
+    }
+
+    return todoController;
+  }
+
+
 }
