@@ -89,4 +89,18 @@ public class Database {
     return Arrays.stream(todos).filter(x -> x.category.equals(targetCategory)).toArray(Todo[]::new);
   }
 
+  /**
+  * Limit the number of results in array.
+  *
+  * @param users the list of users to filter by company
+  * @param targetCompany the target company to look for
+  * @return an array of all the users from the given list that have the target
+  * company
+  */
+  public Todo[] limitTodosList(Todo[] todos, String targetCategory) {
+    return Arrays.stream(todos).filter(x -> x.category.equals(targetCategory)).toArray(Todo[]::new);
+    }
+
+
+
 }
