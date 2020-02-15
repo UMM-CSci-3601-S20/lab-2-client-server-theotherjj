@@ -14,7 +14,7 @@ public class FullTodoListFromDB {
 
   @Test
   public void firstTodoInFullList() throws IOException {
-    Database db = new Database("/todos.json");
+    TodoDatabase db = new TodoDatabase("/todos.json");
     Todo[] allTodos = db.listTodos(new HashMap<>());
     Todo firstTodo = allTodos[0];
     assertEquals("Blanche", firstTodo.owner, "Incorrect name");

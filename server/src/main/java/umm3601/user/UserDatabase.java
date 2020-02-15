@@ -1,4 +1,4 @@
-package umm3601.todo;
+package umm3601.user;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,18 +16,18 @@ import com.google.gson.Gson;
  * then provide various database-like methods that allow the `UserController` to
  * "query" the "database".
  */
-public class Database {
+public class UserDatabase {
 
-  private Todo[] allTodos;
+  private User[] allUsers;
 
-  public Database(String userDataFile) throws IOException {
+  public UserDatabase(String userDataFile) throws IOException {
     Gson gson = new Gson();
     InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream(userDataFile));
-    allTodos = gson.fromJson(reader, Todo[].class);
+    allUsers = gson.fromJson(reader, User[].class);
   }
 
   public int size() {
-    return allTodos.length;
+    return allUsers.length;
   }
 
   /**
@@ -37,8 +37,8 @@ public class Database {
    * @param id the ID of the desired user
    * @return the user with the given ID, or null if there is no user with that ID
    */
-  public Todo getTodo(String id) {
-    return Arrays.stream(allTodos).filter(x -> x._id.equals(id)).findFirst().orElse(null);
+  public User getUser(String id) {
+    return Arrays.stream(allUsers).filter(x -> x._id.equals(id)).findFirst().orElse(null);
   }
 
   /**
@@ -47,22 +47,22 @@ public class Database {
    * @param queryParams map of key-value pairs for the query
    * @return an array of all the users matching the given criteria
    */
-  public Todo[] listTodos(Map<String, List<String>> queryParams) {
-    Todo[] filteredTodos = allTodos;
+  public User[] listUsers(Map<String, List<String>> queryParams) {
+    User[] filteredUsers = allUsers;
 
     // Filter age if defined
-    if (queryParams.containsKey("owner")) {
-      String targetOwner = queryParams.get("owner").get(0);
-      filteredTodos = filterTodoByOwner(filteredTodos, targetOwner);
+    if (queryParams.containsKey("age")) {
+      int targetAge = Integer.parseInt(queryParams.get("age").get(0));
+      filteredUsers = filterUsersByAge(filteredUsers, targetAge);
     }
     // Filter company if defined
-    if (queryParams.containsKey("category")) {
-      String targetCompany = queryParams.get("category").get(0);
-      filteredTodos = filterTodoByCategory(filteredTodos, targetCompany);
+    if (queryParams.containsKey("company")) {
+      String targetCompany = queryParams.get("company").get(0);
+      filteredUsers = filterUsersByCompany(filteredUsers, targetCompany);
     }
     // Process other query parameters here...
 
-    return filteredTodos;
+    return filteredUsers;
   }
 
   /**
@@ -73,8 +73,8 @@ public class Database {
    * @return an array of all the users from the given list that have the target
    *         age
    */
-  public Todo[] filterTodoByOwner(Todo[] todos, String targetOwner) {
-    return Arrays.stream(todos).filter(x -> x.owner.equals(targetOwner)).toArray(Todo[]::new);
+  public User[] filterUsersByAge(User[] users, int targetAge) {
+    return Arrays.stream(users).filter(x -> x.age == targetAge).toArray(User[]::new);
   }
 
   /**
@@ -85,8 +85,8 @@ public class Database {
    * @return an array of all the users from the given list that have the target
    *         company
    */
-  public Todo[] filterTodoByCategory(Todo[] todos, String targetCategory) {
-    return Arrays.stream(todos).filter(x -> x.category.equals(targetCategory)).toArray(Todo[]::new);
+  public User[] filterUsersByCompany(User[] users, String targetCompany) {
+    return Arrays.stream(users).filter(x -> x.company.equals(targetCompany)).toArray(User[]::new);
   }
 
 }
