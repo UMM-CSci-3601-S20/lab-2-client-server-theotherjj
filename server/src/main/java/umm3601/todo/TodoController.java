@@ -49,16 +49,4 @@ public class TodoController {
     ctx.json(todos);
   }
 
-  /**
-  * Limit the number of JSON objects displayed
-  *
-  * @param ctx a Javalin HTTP context
-  */
-  public void limitTodos(Context ctx) {
-    Todo[] todos = database.limitTodosList(ctx.queryParamMap());
-    ctx.json(todos);
-    }
-
-
-
 }
