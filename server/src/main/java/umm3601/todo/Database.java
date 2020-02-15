@@ -18,16 +18,16 @@ import com.google.gson.Gson;
  */
 public class Database {
 
-  private User[] allUsers;
+  private Todo[] allTodos;
 
   public Database(String userDataFile) throws IOException {
     Gson gson = new Gson();
     InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream(userDataFile));
-    allUsers = gson.fromJson(reader, User[].class);
+    allTodos = gson.fromJson(reader, Todo[].class);
   }
 
   public int size() {
-    return allUsers.length;
+    return allTodos.length;
   }
 
   /**
@@ -37,8 +37,8 @@ public class Database {
    * @param id the ID of the desired user
    * @return the user with the given ID, or null if there is no user with that ID
    */
-  public User getUser(String id) {
-    return Arrays.stream(allUsers).filter(x -> x._id.equals(id)).findFirst().orElse(null);
+  public Todo getTodo(String id) {
+    return Arrays.stream(allTodos).filter(x -> x._id.equals(id)).findFirst().orElse(null);
   }
 
   /**
@@ -47,13 +47,13 @@ public class Database {
    * @param queryParams map of key-value pairs for the query
    * @return an array of all the users matching the given criteria
    */
-  public User[] listUsers(Map<String, List<String>> queryParams) {
-    User[] filteredUsers = allUsers;
+  public Todo[] listTodos(Map<String, List<String>> queryParams) {
+    Todo[] filteredTodos = allTodos;
 
     // Filter age if defined
     if (queryParams.containsKey("age")) {
       int targetAge = Integer.parseInt(queryParams.get("age").get(0));
-      filteredUsers = filterUsersByAge(filteredUsers, targetAge);
+      filteredTodos = filterTodosByOwner(filteredTodos, targetAge);
     }
     // Filter company if defined
     if (queryParams.containsKey("company")) {
