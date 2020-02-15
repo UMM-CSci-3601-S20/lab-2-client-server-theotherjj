@@ -91,11 +91,10 @@ public class Database {
 
   /**
   * Limit the number of results in array.
-  *
-  * @param users the list of users to filter by company
-  * @param targetCompany the target company to look for
-  * @return an array of all the users from the given list that have the target
-  * company
+  * @param users         the list of users to filter by company
+  * @param limit the number of items the list should be limited to
+  * @return an array of all the users from the given list that contains
+  * no more items than specified
   */
   public Todo[] limitTodosList(Todo[] todos, long limit) {
     return Arrays.stream(todos).limit(limit).toArray(Todo[]::new);
