@@ -97,9 +97,8 @@ public class Database {
   * @return an array of all the users from the given list that have the target
   * company
   */
-  public Todo[] limitTodosList(Todo[] todos, String targetCategory) {
-    long testValue = 3;
-    return Arrays.stream(todos).limit(testValue).toArray(Todo[]::new);
+  public Todo[] limitTodosList(Todo[] todos, long limit) {
+    return Arrays.stream(todos).limit(limit).toArray(Todo[]::new);
     }
 
 
