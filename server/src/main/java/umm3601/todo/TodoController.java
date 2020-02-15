@@ -55,7 +55,8 @@ public class TodoController {
   * @param ctx a Javalin HTTP context
   */
   public void limitTodos(Context ctx) {
-    Todo[] todos = database.limitTodosList(ctx.queryParamMap());
+    long testParameter = 3;
+    Todo[] todos = database.limitTodosList(ctx.queryParamMap(), testParameter);
     ctx.json(todos);
     }
 

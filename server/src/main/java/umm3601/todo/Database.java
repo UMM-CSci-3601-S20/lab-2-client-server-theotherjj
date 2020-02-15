@@ -9,20 +9,20 @@ import java.util.Map;
 import com.google.gson.Gson;
 
 /**
- * A fake "database" of user info
+ * A fake "database" of todo info
  * <p>
  * Since we don't want to complicate this lab with a real database, we're going
- * to instead just read a bunch of user data from a specified JSON file, and
- * then provide various database-like methods that allow the `UserController` to
+ * to instead just read a bunch of todo data from a specified JSON file, and
+ * then provide various database-like methods that allow the `TodoController` to
  * "query" the "database".
  */
 public class Database {
 
   private Todo[] allTodos;
 
-  public Database(String userDataFile) throws IOException {
+  public Database(String todoDataFile) throws IOException {
     Gson gson = new Gson();
-    InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream(userDataFile));
+    InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream(todoDataFile));
     allTodos = gson.fromJson(reader, Todo[].class);
   }
 
@@ -31,21 +31,21 @@ public class Database {
   }
 
   /**
-   * Get the single user specified by the given ID. Return `null` if there is no
-   * user with that ID.
+   * Get the single todo specified by the given ID. Return `null` if there is no
+   * todo with that ID
    *
-   * @param id the ID of the desired user
-   * @return the user with the given ID, or null if there is no user with that ID
+   * @param id the ID of the desired todo
+   * @return the todo with the given ID, or null if there is no todo with that ID
    */
   public Todo getTodo(String id) {
     return Arrays.stream(allTodos).filter(x -> x._id.equals(id)).findFirst().orElse(null);
   }
 
   /**
-   * Get an array of all the users satisfying the queries in the params.
+   * Get an array of all the todos satisfying the queries in the parameters
    *
    * @param queryParams map of key-value pairs for the query
-   * @return an array of all the users matching the given criteria
+   * @return an array of all the todos matching the given criteria
    */
   public Todo[] listTodos(Map<String, List<String>> queryParams) {
     Todo[] filteredTodos = allTodos;
@@ -66,24 +66,24 @@ public class Database {
   }
 
   /**
-   * Get an array of all the users having the target age.
+   * Get an array of all the todos having the target owner
    *
-   * @param users     the list of users to filter by age
-   * @param targetAge the target age to look for
-   * @return an array of all the users from the given list that have the target
-   *         age
+   * @param todos     the list of todos to filter by target owner
+   * @param targetOwner the target owner to look for
+   * @return an array of all the todos from the given list that have the target
+   * owner
    */
   public Todo[] filterTodoByOwner(Todo[] todos, String targetOwner) {
     return Arrays.stream(todos).filter(x -> x.owner.equals(targetOwner)).toArray(Todo[]::new);
   }
 
   /**
-   * Get an array of all the users having the target company.
+   * Get an array of all the todos having the target company
    *
-   * @param users         the list of users to filter by company
-   * @param targetCompany the target company to look for
-   * @return an array of all the users from the given list that have the target
-   *         company
+   * @param todos         the list of todos to filter by company
+   * @param targetCategory the target category to look for
+   * @return an array of all the todos from the given list that have the target
+   * category
    */
   public Todo[] filterTodoByCategory(Todo[] todos, String targetCategory) {
     return Arrays.stream(todos).filter(x -> x.category.equals(targetCategory)).toArray(Todo[]::new);
@@ -91,9 +91,9 @@ public class Database {
 
   /**
   * Limit the number of results in array.
-  * @param users         the list of users to filter by company
+  * @param todos         the list of todos to filter by company
   * @param limit the number of items the list should be limited to
-  * @return an array of all the users from the given list that contains
+  * @return an array of all the todos from the given list that contains
   * no more items than specified
   */
   public Todo[] limitTodosList(Todo[] todos, long limit) {
