@@ -5,7 +5,7 @@ import java.io.IOException;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 //import umm3601.user.Database;
-import umm3601.user.UserController;
+//import umm3601.user.UserController;
 import umm3601.todo.TodoController;
 import umm3601.todo.Database;
 
@@ -14,7 +14,7 @@ public class Server {
   public static final String CLIENT_DIRECTORY = "../client";
   public static final String USER_DATA_FILE = "/users.json";
   public static final String TODOS_DATA_FILE = "/todos.json";
-  private static Database userDatabase;
+  //private static Database userDatabase;
   private static Database todoDatabase;
 
 
