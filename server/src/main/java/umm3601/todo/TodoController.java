@@ -40,7 +40,7 @@ public class TodoController {
   }
 
   /**
-   * Get a JSON response with a list of all the todos in the "database".
+   * Get a JSON response with a list of all the todos in the "database"
    *
    * @param ctx a Javalin HTTP context
    */
@@ -48,5 +48,17 @@ public class TodoController {
     Todo[] todos = database.listTodos(ctx.queryParamMap());
     ctx.json(todos);
   }
+
+  /**
+  * Limit the number of JSON objects displayed
+  *
+  * @param ctx a Javalin HTTP context
+  */
+  public void limitTodos(Context ctx) {
+    Todo[] todos = database.limitTodosList(ctx.queryParamMap());
+    ctx.json(todos);
+    }
+
+
 
 }
