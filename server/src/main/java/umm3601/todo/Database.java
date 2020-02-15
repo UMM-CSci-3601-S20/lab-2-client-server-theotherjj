@@ -51,18 +51,18 @@ public class Database {
     Todo[] filteredTodos = allTodos;
 
     // Filter age if defined
-    if (queryParams.containsKey("age")) {
-      int targetAge = Integer.parseInt(queryParams.get("age").get(0));
-      filteredTodos = filterTodosByOwner(filteredTodos, targetAge);
+    if (queryParams.containsKey("owner")) {
+      String targetOwner = queryParams.get("owner").get(0);
+      filteredTodos = filterTodoByOwner(filteredTodos, targetOwner);
     }
     // Filter company if defined
-    if (queryParams.containsKey("company")) {
-      String targetCompany = queryParams.get("company").get(0);
-      filteredUsers = filterUsersByCompany(filteredUsers, targetCompany);
+    if (queryParams.containsKey("category")) {
+      String targetCompany = queryParams.get("category").get(0);
+      filteredTodos = filterTodoByCategory(filteredTodos, targetCompany);
     }
     // Process other query parameters here...
 
-    return filteredUsers;
+    return filteredTodos;
   }
 
   /**
@@ -73,8 +73,8 @@ public class Database {
    * @return an array of all the users from the given list that have the target
    *         age
    */
-  public User[] filterUsersByAge(User[] users, int targetAge) {
-    return Arrays.stream(users).filter(x -> x.age == targetAge).toArray(User[]::new);
+  public Todo[] filterTodoByOwner(Todo[] todos, String targetOwner) {
+    return Arrays.stream(todos).filter(x -> x.owner.equals(targetOwner)).toArray(Todo[]::new);
   }
 
   /**
@@ -85,8 +85,8 @@ public class Database {
    * @return an array of all the users from the given list that have the target
    *         company
    */
-  public User[] filterUsersByCompany(User[] users, String targetCompany) {
-    return Arrays.stream(users).filter(x -> x.company.equals(targetCompany)).toArray(User[]::new);
+  public Todo[] filterTodoByCategory(Todo[] todos, String targetCategory) {
+    return Arrays.stream(todos).filter(x -> x.category.equals(targetCategory)).toArray(Todo[]::new);
   }
 
 }
