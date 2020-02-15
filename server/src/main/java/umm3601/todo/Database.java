@@ -30,6 +30,12 @@ public class Database {
     return allTodos.length;
   }
 
+  public int getSize(Todo[] arrayToMeasure){
+    int arraySize = 0;
+    arraySize = arrayToMeasure.length;
+    return arraySize;
+  }
+
   /**
    * Get the single user specified by the given ID. Return `null` if there is no
    * user with that ID.
@@ -60,6 +66,11 @@ public class Database {
       String targetCompany = queryParams.get("category").get(0);
       filteredTodos = filterTodoByCategory(filteredTodos, targetCompany);
     }
+
+    // Limit result numbers
+    //if (getSize(filteredTodos) > ) {
+      //filteredTodos = limitTodosList(todos, long);
+    //}
     // Process other query parameters here...
 
     return filteredTodos;
