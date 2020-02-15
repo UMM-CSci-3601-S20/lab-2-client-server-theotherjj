@@ -98,7 +98,8 @@ public class Database {
   * company
   */
   public Todo[] limitTodosList(Todo[] todos, String targetCategory) {
-    return Arrays.stream(todos).filter(x -> x.category.equals(targetCategory)).toArray(Todo[]::new);
+    long testValue = 3;
+    return Arrays.stream(todos).limit(testValue).toArray(Todo[]::new);
     }
 
 
