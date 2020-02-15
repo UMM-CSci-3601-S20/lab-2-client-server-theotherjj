@@ -89,17 +89,4 @@ public class Database {
     return Arrays.stream(todos).filter(x -> x.category.equals(targetCategory)).toArray(Todo[]::new);
   }
 
-  /**
-  * Limit the number of results in array.
-  * @param todos         the list of todos to filter by company
-  * @param limit the number of items the list should be limited to
-  * @return an array of all the todos from the given list that contains
-  * no more items than specified
-  */
-  public Todo[] limitTodosList(Todo[] todos, long limit) {
-    return Arrays.stream(todos).limit(limit).toArray(Todo[]::new);
-    }
-
-
-
 }

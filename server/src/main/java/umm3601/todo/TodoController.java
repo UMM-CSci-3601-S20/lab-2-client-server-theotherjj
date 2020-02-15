@@ -49,7 +49,4 @@ public class TodoController {
     ctx.json(todos);
   }
 
-
-
-
 }
