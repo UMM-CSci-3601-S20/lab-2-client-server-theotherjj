@@ -48,7 +48,9 @@ public class Server {
 
     server.get("api/todos/:id", ctx -> todoController.getTodo(ctx));
     server.get("api/todos", ctx -> todoController.getTodos(ctx));
-    //server.get("api/todos?limit=", ctx -> todoController.getTodos);
+    server.get("api/todos?limit=", ctx -> todoController.getTodos(ctx));
+    server.get("api/todos?contains=", ctx -> todoController.getTodos(ctx));
+    server.get("api/todos?status==", ctx -> todoController.getTodos(ctx));
   }
 
   /***
