@@ -77,10 +77,13 @@ public class TodoDatabase{
 
 
      //Limit result numbers
-     int limit = 3;
+     if (queryParams.containsKey("limit")) {
+      String targetLimit = queryParams.get("limit").get(0);
+      int limit = Integer.valueOf(targetLimit);
      if (getSize(filteredTodos) > limit) {
        filteredTodos = limitTodosList(filteredTodos, limit);
      }
+    }
     // Process other query parameters here...
 
     return filteredTodos;
