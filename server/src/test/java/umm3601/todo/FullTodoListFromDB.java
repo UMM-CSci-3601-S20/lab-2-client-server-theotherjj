@@ -10,7 +10,7 @@ import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests umm3601.user.Database listUser functionality
+ * Tests umm3601.todo.Database listUser functionality
  */
 public class FullTodoListFromDB {
 
@@ -34,14 +34,17 @@ public class FullTodoListFromDB {
   }
 
   @Test
-  public void totalUserCount() throws IOException {
+  public void totalTodoCount() throws IOException {
     int counter = 0;
+
     TodoDatabase db = new TodoDatabase("/todos.json");
     Todo[] allTodos = db.listTodos(new HashMap<>());
+    System.out.println(db.getSize(allTodos));
     for(int i = 0; i < allTodos.length; i++) {
       counter++;
   }
-    assertEquals(counter, allTodos.length, "Incorrect total number of users");
+    assertEquals(counter, db.size(), "Incorrect total number of todos");
+    assertEquals(counter, 300, "Incorrect total number");
     assertNotEquals(counter, 0, "Incorrect total");
     assertNotEquals(counter, 100, "Incorrect total");
     assertNotEquals(counter, 10, "Incorrect total");
