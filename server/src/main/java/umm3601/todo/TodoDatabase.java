@@ -100,7 +100,7 @@ public class TodoDatabase{
    * Get an array of all the todos having the target status
    *
    * @param todos         the list of todos to filter by status
-   * @param targetCategory the target status to look for
+   * @param targetStatus the target status to look for
    * @return an array of all the todos from the given list that have the target
    * status
    */
@@ -108,7 +108,7 @@ public class TodoDatabase{
     if (targetStatus.equals("incomplete")){
       return Arrays.stream(todos).filter(x -> x.status == false).toArray(Todo[]::new);
     }
-    if (targetStatus.equals("complete")) {
+    else if (targetStatus.equals("complete")) {
       return Arrays.stream(todos).filter(x -> x.status == true).toArray(Todo[]::new);
     }
     else
