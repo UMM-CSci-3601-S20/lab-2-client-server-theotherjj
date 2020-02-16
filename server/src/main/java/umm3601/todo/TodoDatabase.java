@@ -82,15 +82,8 @@ public class TodoDatabase{
       int limit = Integer.valueOf(targetLimit);
      if (getSize(filteredTodos) >= limit) {
        filteredTodos = limitTodosList(filteredTodos, limit);
-     } else {
-     if(limit < 0){
-         try{
-          limitTodosList(filteredTodos, limit);
-         } catch (Exception e){
-           System.out.println("No negative numbers");
-         }
-      }
      }
+
     }
     // Process other query parameters here...
 
