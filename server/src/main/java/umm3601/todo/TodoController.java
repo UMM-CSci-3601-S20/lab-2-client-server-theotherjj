@@ -8,19 +8,19 @@ import io.javalin.http.NotFoundResponse;
  */
 public class TodoController {
 
-  private Database database;
+  private TodoDatabase TodoDatabase;
 
   /**
    * Construct a controller for users.
    * <p>
-   * This loads the "database" of user info from a JSON file and stores that
+   * This loads the "TodoDatabase" of user info from a JSON file and stores that
    * internally so that (subsets of) users can be returned in response to
    * requests.
    *
-   * @param database the `Database` containing user data
+   * @param TodoDatabase the `TodoDatabase` containing user data
    */
-  public TodoController(Database database) {
-    this.database = database;
+  public TodoController(TodoDatabase TodoDatabase) {
+    this.TodoDatabase = TodoDatabase;
   }
 
   /**
@@ -30,7 +30,7 @@ public class TodoController {
    */
   public void getTodo(Context ctx) {
     String id = ctx.pathParam("id", String.class).get();
-    Todo todo = database.getTodo(id);
+    Todo todo = TodoDatabase.getTodo(id);
     if (todo != null) {
       ctx.json(todo);
       ctx.status(201);
@@ -40,12 +40,12 @@ public class TodoController {
   }
 
   /**
-   * Get a JSON response with a list of all the todos in the "database"
+   * Get a JSON response with a list of all the todos in the "TodoDatabase"
    *
    * @param ctx a Javalin HTTP context
    */
   public void getTodos(Context ctx) {
-    Todo[] todos = database.listTodos(ctx.queryParamMap());
+    Todo[] todos = TodoDatabase.listTodos(ctx.queryParamMap());
     ctx.json(todos);
   }
 
