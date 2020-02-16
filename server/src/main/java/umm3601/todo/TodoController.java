@@ -8,7 +8,7 @@ import io.javalin.http.NotFoundResponse;
  */
 public class TodoController {
 
-  private TodoDatabase database;
+  private TodoDatabase todoDatabase;
 
   /**
    * Construct a controller for users.
@@ -20,7 +20,7 @@ public class TodoController {
    * @param todoDatabase the `Database` containing user data
    */
   public TodoController(TodoDatabase todoDatabase) {
-    this.database = todoDatabase;
+    this.todoDatabase = todoDatabase;
   }
 
   /**
@@ -30,7 +30,7 @@ public class TodoController {
    */
   public void getTodo(Context ctx) {
     String id = ctx.pathParam("id", String.class).get();
-    Todo todo = TodoDatabase.getTodo(id);
+    Todo todo = todoDatabase.getTodo(id);
     if (todo != null) {
       ctx.json(todo);
       ctx.status(201);
@@ -45,7 +45,7 @@ public class TodoController {
    * @param ctx a Javalin HTTP context
    */
   public void getTodos(Context ctx) {
-    Todo[] todos = TodoDatabase.listTodos(ctx.queryParamMap());
+    Todo[] todos = todoDatabase.listTodos(ctx.queryParamMap());
     ctx.json(todos);
   }
 
