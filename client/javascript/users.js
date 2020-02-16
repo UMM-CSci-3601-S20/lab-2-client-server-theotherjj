@@ -18,7 +18,6 @@ function getAllUsersByAge() {
 }
 
 
-
 // gets users from the api.
 // It adds the values of the various inputs to the requested URl to filter and order the returned users.
 function getFilteredUsers() {
