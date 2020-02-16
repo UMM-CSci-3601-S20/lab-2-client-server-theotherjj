@@ -84,14 +84,16 @@ public class TodoDatabase{
     }
 
     // Search entries for words
-    if (queryParams.containsKey("body")) {
-      String targetStatus = queryParams.get("status").get(0);
-      filteredTodos = searchBody(filteredTodos, targetStatus);
+    if (queryParams.containsKey("contains")) {
+      String searchTerm = queryParams.get("contains").get(0);
+      filteredTodos = searchBody(filteredTodos, searchTerm);
     }
     // Process other query parameters here...
 
     return filteredTodos;
   }
+
+
 
   /**
    * Get an array of all the todos having the target owner.
@@ -163,14 +165,10 @@ public class TodoDatabase{
   * the search term the user wants
   */
   public Todo[] searchBody(Todo[] todos, String searchTerm) {
+   // int found = 0;
+   return Arrays.stream(todos).filter(x -> x.body.contains(searchTerm)).toArray(Todo[]::new);
+  }
 
-    /*Todo[] results = new Todo[];
-    for(int i = 0; i < limit; i++){
-    results [i] = todos[i];
-    }
-*/
-    return todos;
-    }
 
 
 }
