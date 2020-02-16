@@ -10,7 +10,7 @@ import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests umm3601.user.Database listUser functionality
+ * Tests umm3601.todo.Database listUser functionality
  */
 public class FullTodoListFromDB {
 
@@ -34,7 +34,7 @@ public class FullTodoListFromDB {
   }
 
   @Test
-  public void totalUserCount() throws IOException {
+  public void totalTodoCount() throws IOException {
     int counter = 0;
     TodoDatabase db = new TodoDatabase("/todos.json");
     Todo[] allTodos = db.listTodos(new HashMap<>());
