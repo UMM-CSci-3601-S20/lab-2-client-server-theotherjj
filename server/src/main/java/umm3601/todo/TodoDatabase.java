@@ -77,11 +77,18 @@ public class TodoDatabase{
      // Limit result numbers
      if (queryParams.containsKey("limit")) {
       String targetLimit = queryParams.get("limit").get(0);
-      int limit = Integer.valueOf(targetLimit);
-     if (getSize(filteredTodos) > limit) {
+      if (targetLimit.matches("[0-9]+") && targetLimit.length() <= 4) { // If target length is less than 9999
+       int limit = Integer.valueOf(targetLimit);
+       if (getSize(filteredTodos) > limit) {
        filteredTodos = limitTodosList(filteredTodos, limit);
-     }
+       }
+       // If target length is greater than 4 digits (9999), we may reach the integer size limit (5 digits)
     }
+    else {
+      filteredTodos = null;
+     }
+   }
+
 
     // Search entries for words
     if (queryParams.containsKey("contains")) {
