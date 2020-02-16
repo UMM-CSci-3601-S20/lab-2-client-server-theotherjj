@@ -70,8 +70,9 @@ public class Database {
     }
 
      //Limit result numbers
-    if (getSize(filteredTodos) > 3) {
-      filteredTodos = limitTodosList(filteredTodos, 3);
+    int limit = 3;
+    if (getSize(filteredTodos) > limit) {
+      filteredTodos = limitTodosList(filteredTodos, limit);
     }
 
     //Process other query parameters here...
