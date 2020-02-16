@@ -54,7 +54,7 @@ public class TodoDatabase{
    * @param queryParams map of key-value pairs for the query
    * @return an array of all the todos matching the given criteria
    */
-  public Todo[] listTodos(Map<String, List<String>> queryParams) {
+  public Todo[] listTodos(Map<String, List<String>> queryParams){
     Todo[] filteredTodos = allTodos;
 
     // Filter owner if defined
@@ -78,8 +78,16 @@ public class TodoDatabase{
      if (queryParams.containsKey("limit")) {
       String targetLimit = queryParams.get("limit").get(0);
       int limit = Integer.valueOf(targetLimit);
-     if (getSize(filteredTodos) > limit) {
+     if (getSize(filteredTodos) >= limit) {
        filteredTodos = limitTodosList(filteredTodos, limit);
+     } else {
+     if(limit < 0){
+         try{
+          limitTodosList(filteredTodos, limit);
+         } catch (Exception e){
+           System.out.println("No negative numbers");
+         }
+      }
      }
     }
 
