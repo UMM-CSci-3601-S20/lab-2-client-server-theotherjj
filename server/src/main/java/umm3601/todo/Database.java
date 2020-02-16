@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import javax.print.DocFlavor.READER;
+
 import com.google.gson.Gson;
 
 /**
@@ -67,11 +69,12 @@ public class Database {
       filteredTodos = filterTodoByCategory(filteredTodos, targetCompany);
     }
 
-    // Limit result numbers
-    //if (getSize(filteredTodos) > ) {
-      //filteredTodos = limitTodosList(todos, long);
-    //}
-    // Process other query parameters here...
+     //Limit result numbers
+    if (getSize(filteredTodos) > 3) {
+      filteredTodos = limitTodosList(filteredTodos, 3);
+    }
+
+    //Process other query parameters here...
 
     return filteredTodos;
   }
@@ -107,8 +110,14 @@ public class Database {
   * @return an array of all the users from the given list that contains
   * no more items than specified
   */
-  public Todo[] limitTodosList(Todo[] todos, long limit) {
-    return Arrays.stream(todos).limit(limit).toArray(Todo[]::new);
+  public Todo[] limitTodosList(Todo[] todos, int limit) {
+    //return Arrays.stream(todos).limit(limit).toArray(Todo[]::new);
+    Todo[] results = new Todo[limit];
+    for(int i = 0; i < limit; i++){
+    results [i] = todos[i];
+    }
+
+    return results;
     }
 
 
