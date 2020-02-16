@@ -50,7 +50,7 @@ public class Server {
     server.get("api/todos", ctx -> todoController.getTodos(ctx));
     server.get("api/todos?limit=", ctx -> todoController.getTodos(ctx));
     server.get("api/todos?contains=", ctx -> todoController.getTodos(ctx));
-    server.get("api/todos?status==", ctx -> todoController.getTodos(ctx));
+    server.get("api/todos?status=", ctx -> todoController.getTodos(ctx));
   }
 
   /***
@@ -66,7 +66,7 @@ public class Server {
 
      try {
       userDatabase = new UserDatabase(USER_DATA_FILE);
-       userController = new UserController(userDatabase);
+      userController = new UserController(userDatabase);
      } catch (IOException e) {
        System.err.println("The server failed to load the user data; shutting down.");
        e.printStackTrace(System.err);
