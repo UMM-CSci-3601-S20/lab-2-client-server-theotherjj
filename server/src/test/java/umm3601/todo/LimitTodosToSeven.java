@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
  */
 public class LimitTodosToSeven {
   @Test
-  public void totalTodoCount() throws IOException {
+  public void sevenTodoCount() throws IOException {
     int counter = 0;
     TodoDatabase db = new TodoDatabase("/todos.json");
     Todo[] allTodos = db.listTodos(new HashMap<>());
@@ -24,6 +24,21 @@ public class LimitTodosToSeven {
   }
     assertEquals(counter, 7, "Incorrect total number of users");
     assertNotEquals(counter, 0, "Incorrect total");
+    assertNotEquals(counter, 100, "Incorrect total");
+    assertNotEquals(counter, 10, "Incorrect total");
+  }
+
+  @Test
+  public void fiftyTodoCount() throws IOException {
+    int counter = 0;
+    TodoDatabase db = new TodoDatabase("/todos.json");
+    Todo[] allTodos = db.listTodos(new HashMap<>());
+    Todo[] fiftyTodos = db.limitTodosList(allTodos, 50);
+    for(int i = 0; i < fiftyTodos.length; i++) {
+      counter++;
+  }
+    assertEquals(counter, 50, "Incorrect total number of users");
+    assertNotEquals(counter, db.size(), "Incorrect total");
     assertNotEquals(counter, 100, "Incorrect total");
     assertNotEquals(counter, 10, "Incorrect total");
   }
