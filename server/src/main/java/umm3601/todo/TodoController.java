@@ -8,7 +8,7 @@ import io.javalin.http.NotFoundResponse;
  */
 public class TodoController {
 
-  private TodoDatabase TodoDatabase;
+  private TodoDatabase database;
 
   /**
    * Construct a controller for users.
@@ -17,10 +17,10 @@ public class TodoController {
    * internally so that (subsets of) users can be returned in response to
    * requests.
    *
-   * @param TodoDatabase the `TodoDatabase` containing user data
+   * @param todoDatabase the `Database` containing user data
    */
-  public TodoController(TodoDatabase TodoDatabase) {
-    this.TodoDatabase = TodoDatabase;
+  public TodoController(TodoDatabase todoDatabase) {
+    this.database = todoDatabase;
   }
 
   /**

@@ -9,12 +9,12 @@ import java.util.Map;
 import com.google.gson.Gson;
 
 /**
- * A fake "UserDatabase" of user info
+ * A fake "database" of user info
  * <p>
- * Since we don't want to complicate this lab with a real UserDatabase, we're going
+ * Since we don't want to complicate this lab with a real database, we're going
  * to instead just read a bunch of user data from a specified JSON file, and
- * then provide various UserDatabase-like methods that allow the `UserController` to
- * "query" the "UserDatabase".
+ * then provide various database-like methods that allow the `UserController` to
+ * "query" the "database".
  */
 public class UserDatabase {
 

@@ -8,7 +8,7 @@ import io.javalin.http.NotFoundResponse;
  */
 public class UserController {
 
-  private UserDatabase userDatabase;
+  private UserDatabase database;
 
   /**
    * Construct a controller for users.
@@ -19,8 +19,8 @@ public class UserController {
    *
    * @param userDatabase the `UserDatabase` containing user data
    */
-  public UserController(UserDatabase userDatabase) {
-    this.userDatabase = userDatabase;
+  public UserController(UserDatabase database) {
+    this.database = database;
   }
 
   /**

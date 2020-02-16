@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
-//import umm3601.user.UserDatabase;
-//import umm3601.user.UserController;
+import umm3601.user.UserDatabase;
+import umm3601.user.UserController;
 import umm3601.todo.TodoController;
 import umm3601.todo.TodoDatabase;
 
@@ -21,7 +21,7 @@ public class Server {
   public static void main(String[] args) {
 
     // Initialize dependencies
-   // UserController userController = buildUserController();
+    UserController userController = buildUserController();
     TodoController todoController = buildTodoController();
 
     Javalin server = Javalin.create(config -> {
@@ -43,11 +43,12 @@ public class Server {
     // Get specific user
     server.get("api/users/:id", ctx -> userController.getUser(ctx));
 
-    // List users, filtered using query parameters
-    server.get("api/users", ctx -> userController.getUsers(ctx));
+     // List users, filtered using query parameters
+     server.get("api/users", ctx -> userController.getUsers(ctx));
 
     server.get("api/todos/:id", ctx -> todoController.getTodo(ctx));
     server.get("api/todos", ctx -> todoController.getTodos(ctx));
+    //server.get("api/todos?limit=", ctx -> todoController.getTodos);
   }
 
   /***
@@ -58,22 +59,22 @@ public class Server {
    * reading from the JSON "database" file. If that happens we'll print out an
    * error message exit the program.
    */
-     private static UserController buildUserController() {
-     UserController userController = null;
+   private static UserController buildUserController() {
+   UserController userController = null;
 
      try {
-       userDatabase = new UserDatabase(USER_DATA_FILE);
+      userDatabase = new UserDatabase(USER_DATA_FILE);
        userController = new UserController(userDatabase);
      } catch (IOException e) {
-      System.err.println("The server failed to load the user data; shutting down.");
-      e.printStackTrace(System.err);
+       System.err.println("The server failed to load the user data; shutting down.");
+       e.printStackTrace(System.err);
 
-    // Exit from the Java program
-    System.exit(1);
-    }
+       // Exit from the Java program
+       System.exit(1);
+     }
 
      return userController;
-  }
+   }
 
   private static TodoController buildTodoController() {
     TodoController todoController = null;
