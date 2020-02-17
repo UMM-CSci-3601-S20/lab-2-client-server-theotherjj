@@ -80,7 +80,6 @@ public class TodoDatabase{
      case "owner":
      filteredTodos = orderByOwner(filteredTodos, orderByTarget);
      break;
-<<<<<<< HEAD
 
      case "category":
      filteredTodos = orderByCategory(filteredTodos, orderByTarget);
@@ -103,30 +102,7 @@ public class TodoDatabase{
      default:
      }
     }
-=======
 
-     case "category":
-     filteredTodos = orderByCategory(filteredTodos, orderByTarget);
-     break;
-
-     case "body":
-     filteredTodos = orderByBody(filteredTodos, orderByTarget);
-     break;
-
-     case "status":
-     Todo[] completeTodos = filterTodoByStatus(filteredTodos, "complete");
-     Todo[] incompleteTodos = filterTodoByStatus(filteredTodos, "incomplete");
-     Todo[] concatenateTodos = combine(completeTodos,incompleteTodos);
-     filteredTodos = concatenateTodos;
-     break;
-
-
-
-
-     default:
-     }
-
->>>>>>> master
 
     // Limit result numbers
     if (queryParams.containsKey("limit")) {
@@ -156,11 +132,9 @@ public class TodoDatabase{
     return filteredTodos;
   }
 
-  // Process other query parameters here...
 
-  return filteredTodos;
 
-}
+
 
 
 
@@ -228,27 +202,6 @@ public class TodoDatabase{
   public Todo[] orderByOwner(Todo[] todos, String targetOrderBy){
     return Arrays.stream(todos).sorted((p1,p2) -> p1.owner.compareTo(p2.owner)).toArray(Todo[]::new);
   }
-<<<<<<< HEAD
-
-  public Todo[] orderByBody(Todo[] todos, String targetOrderBy){
-    return Arrays.stream(todos).sorted((p1,p2) -> p1.body.compareTo(p2.body)).toArray(Todo[]::new);
-  }
-
-  public Todo[] orderByCategory(Todo[] todos, String targetOrderBy){
-    return Arrays.stream(todos).sorted((p1,p2) -> p1.category.compareTo(p2.category)).toArray(Todo[]::new);
-  }
-
-    //Combining two arrays for status ordering - for testing
-    public static Todo[] combine(Todo[] completeTodos, Todo[] incompleteTodos) {
-      int length = completeTodos.length + incompleteTodos.length;
-      Todo[] result = new Todo[length];
-      System.arraycopy(completeTodos, 0, result, 0, completeTodos.length);
-      System.arraycopy(incompleteTodos, 0, result, completeTodos.length, incompleteTodos.length);
-      return result;
-  }
-
-=======
->>>>>>> master
 
   public Todo[] orderByBody(Todo[] todos, String targetOrderBy){
     return Arrays.stream(todos).sorted((p1,p2) -> p1.body.compareTo(p2.body)).toArray(Todo[]::new);

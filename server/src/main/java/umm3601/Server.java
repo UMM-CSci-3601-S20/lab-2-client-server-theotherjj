@@ -51,12 +51,9 @@ public class Server {
     server.get("api/todos", ctx -> todoController.getTodos(ctx));
     //List todos by limits
     server.get("api/todos?limit=", ctx -> todoController.getTodos(ctx));
-<<<<<<< HEAD
     server.get("api/todos?orderBy=", ctx -> todoController.getTodos(ctx));
     server.get("api/todos?body=", ctx -> todoController.getTodos(ctx));
-=======
     server.get("api/todos?status=", ctx -> todoController.getTodos(ctx));
->>>>>>> master
   }
 
   /***
