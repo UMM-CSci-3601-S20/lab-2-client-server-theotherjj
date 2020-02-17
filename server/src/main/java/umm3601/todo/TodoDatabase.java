@@ -95,10 +95,6 @@ public class TodoDatabase{
      Todo[] concatenateTodos = combine(completeTodos,incompleteTodos);
      filteredTodos = concatenateTodos;
      break;
-
-
-
-
      default:
      }
     }
