@@ -221,5 +221,9 @@ public class TodoDatabase{
       return result;
   }
 
+  public Todo[] searchBody(Todo[] todos, String searchTerm) {
+    return Arrays.stream(todos).filter(x -> x.body.toLowerCase().contains(searchTerm)).toArray(Todo[]::new);
+   }
+
 
 }
