@@ -73,6 +73,14 @@ public class TodoDatabase{
       filteredTodos = filterTodoByStatus(filteredTodos, targetStatus);
     }
 
+    // Search entries for words
+    if (queryParams.containsKey("contains")) {
+      String searchTerm = queryParams.get("contains").get(0);
+      searchTerm = searchTerm.toLowerCase();
+      filteredTodos = searchBody(filteredTodos, searchTerm);
+      }
+
+
     // Sort todos
     if (queryParams.containsKey("orderBy")){
     String orderByTarget = queryParams.get("orderBy").get(0);

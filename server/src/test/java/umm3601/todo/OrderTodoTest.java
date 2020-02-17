@@ -96,6 +96,7 @@ public class OrderTodoTest {
     TodoDatabase db = new TodoDatabase("/todos.json");
     Map<String, List<String>> queryParams = new HashMap<>();
 
+    queryParams.put("category", Arrays.asList(new String[] {"video games"}));
     queryParams.put("body", Arrays.asList(new String[] {"tempor"}));
     Todo[] adBody = db.listTodos(queryParams);
     System.out.println(adBody.length);
