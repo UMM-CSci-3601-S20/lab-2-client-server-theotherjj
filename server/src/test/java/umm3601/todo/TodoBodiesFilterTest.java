@@ -25,7 +25,7 @@ public class TodoBodiesFilterTest{
     Todo[] firstTodosBody = db.searchBody(allTodos, "tempor");
     System.out.println(firstTodosBody.length);
     Todo firstTempor = firstTodosBody[0];
-    assertEquals(68, firstTodosBody.length, "Incorrect total number of todos");
+    assertEquals(72, firstTodosBody.length, "Incorrect total number of todos");
     assertEquals("58895985a22c04e761776d54", firstTempor._id, "Incorrect id for firstTempor");
     assertEquals("Blanche", firstTempor.owner, "Incorrect owner for firstTempor");
     assertEquals("software design", firstTempor.category, "Incorrect category for firstTempor");
@@ -60,12 +60,8 @@ public class TodoBodiesFilterTest{
     System.out.println(limitTodosTempor.length);
     Todo secondLimitTemporTodo = limitTodosTempor[1];
     assertEquals(2, limitTodosTempor.length, "Incorrect number of limit Tempor todos");
-    assertEquals("58895985f13555dedae2cf6f", secondLimitTemporTodo._id, "Incorrect id of limit Tempor todos");
-    assertEquals(false, secondLimitTemporTodo.status, "Incorrect status of limit Tempor todos");
-
-
+    assertEquals("58895985daa7d137399e8c58", secondLimitTemporTodo._id, "Incorrect id of limit Tempor todos");
+    assertEquals(true, secondLimitTemporTodo.status, "Incorrect status of limit Tempor todos");
   }
-
-
 
 }
