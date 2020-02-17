@@ -49,6 +49,7 @@ public class Server {
     //Get specific todos
     server.get("api/todos/:id", ctx -> todoController.getTodo(ctx));
     server.get("api/todos", ctx -> todoController.getTodos(ctx));
+
     //List todos by limits
     server.get("api/todos?owner=", ctx -> todoController.getTodos(ctx));
     server.get("api/todos?category=", ctx -> todoController.getTodos(ctx));
@@ -99,6 +100,5 @@ public class Server {
 
     return todoController;
   }
-
 
 }
