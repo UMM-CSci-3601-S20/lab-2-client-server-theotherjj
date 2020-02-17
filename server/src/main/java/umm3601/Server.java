@@ -43,16 +43,20 @@ public class Server {
     // Get specific user
     server.get("api/users/:id", ctx -> userController.getUser(ctx));
 
-     // List users, filtered using query parameters
-     server.get("api/users", ctx -> userController.getUsers(ctx));
+    // List users, filtered using query parameters
+    server.get("api/users", ctx -> userController.getUsers(ctx));
 
      //Get specific todos
     server.get("api/todos/:id", ctx -> todoController.getTodo(ctx));
     server.get("api/todos", ctx -> todoController.getTodos(ctx));
     //List todos by limits
     server.get("api/todos?limit=", ctx -> todoController.getTodos(ctx));
+<<<<<<< HEAD
     server.get("api/todos?orderBy=", ctx -> todoController.getTodos(ctx));
     server.get("api/todos?body=", ctx -> todoController.getTodos(ctx));
+=======
+    server.get("api/todos?status=", ctx -> todoController.getTodos(ctx));
+>>>>>>> master
   }
 
   /***

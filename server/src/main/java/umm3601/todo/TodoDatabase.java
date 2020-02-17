@@ -1,4 +1,3 @@
-
 package umm3601.todo;
 
 import java.io.IOException;
@@ -68,7 +67,6 @@ public class TodoDatabase{
       filteredTodos = filterTodoByCategory(filteredTodos, targetCategory);
     }
 
-
     // Filter by status
     if (queryParams.containsKey("status")) {
       String targetStatus = queryParams.get("status").get(0);
@@ -82,6 +80,7 @@ public class TodoDatabase{
      case "owner":
      filteredTodos = orderByOwner(filteredTodos, orderByTarget);
      break;
+<<<<<<< HEAD
 
      case "category":
      filteredTodos = orderByCategory(filteredTodos, orderByTarget);
@@ -104,6 +103,30 @@ public class TodoDatabase{
      default:
      }
     }
+=======
+
+     case "category":
+     filteredTodos = orderByCategory(filteredTodos, orderByTarget);
+     break;
+
+     case "body":
+     filteredTodos = orderByBody(filteredTodos, orderByTarget);
+     break;
+
+     case "status":
+     Todo[] completeTodos = filterTodoByStatus(filteredTodos, "complete");
+     Todo[] incompleteTodos = filterTodoByStatus(filteredTodos, "incomplete");
+     Todo[] concatenateTodos = combine(completeTodos,incompleteTodos);
+     filteredTodos = concatenateTodos;
+     break;
+
+
+
+
+     default:
+     }
+
+>>>>>>> master
 
     // Limit result numbers
     if (queryParams.containsKey("limit")) {
@@ -132,6 +155,14 @@ public class TodoDatabase{
 
     return filteredTodos;
   }
+
+  // Process other query parameters here...
+
+  return filteredTodos;
+
+}
+
+
 
   /**
    * Get an array of all the todos having the target owner.
@@ -180,13 +211,12 @@ public class TodoDatabase{
 
    /**
   * Limit the number of results in array.
-  * @param users         the list of users to filter by company
+  * @param todos         the list of todos to limit
   * @param limit the number of items the list should be limited to
-  * @return an array of all the users from the given list that contains
+  * @return an array of all the todos from the given list that contains
   * no more items than specified
   */
   public Todo[] limitTodosList(Todo[] todos, int limit) {
-    //return Arrays.stream(todos).limit(limit).toArray(Todo[]::new);
     Todo[] results = new Todo[limit];
     for(int i = 0; i < limit; i++){
     results [i] = todos[i];
@@ -198,6 +228,7 @@ public class TodoDatabase{
   public Todo[] orderByOwner(Todo[] todos, String targetOrderBy){
     return Arrays.stream(todos).sorted((p1,p2) -> p1.owner.compareTo(p2.owner)).toArray(Todo[]::new);
   }
+<<<<<<< HEAD
 
   public Todo[] orderByBody(Todo[] todos, String targetOrderBy){
     return Arrays.stream(todos).sorted((p1,p2) -> p1.body.compareTo(p2.body)).toArray(Todo[]::new);
@@ -216,6 +247,29 @@ public class TodoDatabase{
       return result;
   }
 
+=======
+>>>>>>> master
+
+  public Todo[] orderByBody(Todo[] todos, String targetOrderBy){
+    return Arrays.stream(todos).sorted((p1,p2) -> p1.body.compareTo(p2.body)).toArray(Todo[]::new);
+  }
+
+  public Todo[] orderByCategory(Todo[] todos, String targetOrderBy){
+    return Arrays.stream(todos).sorted((p1,p2) -> p1.category.compareTo(p2.category)).toArray(Todo[]::new);
+  }
+
+    //Combining two arrays for status ordering - for testing
+    public static Todo[] combine(Todo[] completeTodos, Todo[] incompleteTodos) {
+      int length = completeTodos.length + incompleteTodos.length;
+      Todo[] result = new Todo[length];
+      System.arraycopy(completeTodos, 0, result, 0, completeTodos.length);
+      System.arraycopy(incompleteTodos, 0, result, completeTodos.length, incompleteTodos.length);
+      return result;
+  }
+
+  public Todo[] searchBody(Todo[] todos, String searchTerm) {
+    return Arrays.stream(todos).filter(x -> x.body.toLowerCase().contains(searchTerm)).toArray(Todo[]::new);
+   }
+
 
 }
-

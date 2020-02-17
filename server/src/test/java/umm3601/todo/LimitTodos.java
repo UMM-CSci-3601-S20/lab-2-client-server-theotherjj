@@ -1,12 +1,20 @@
 package umm3601.todo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+<<<<<<< HEAD
+=======
+//import static org.junit.jupiter.api.Assertions.assertFalse;
+>>>>>>> master
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 import java.io.IOException;
 import java.util.HashMap;
 
+<<<<<<< HEAD
+=======
+//import org.junit.jupiter.api.Assertions;
+>>>>>>> master
 import org.junit.jupiter.api.Test;
 
 /**
@@ -43,19 +51,5 @@ public class LimitTodos {
     assertNotEquals(counter, 100, "Incorrect total");
     assertNotEquals(counter, 10, "Incorrect total");
   }
-
-  // @Test
-  // public void negativeTodoCount() throws IOException {
-  //   TodoDatabase db = new TodoDatabase("/todos.json");
-  //   Todo[] allTodos = db.listTodos(new HashMap<>());
-  //   try {
-  //     db.limitTodosList(allTodos, -1);
-  //   } catch (Exception e) {
-  //     Assertions.fail("Exception " + e);
-  //   }
-  // }
-
-
-
 
 }
