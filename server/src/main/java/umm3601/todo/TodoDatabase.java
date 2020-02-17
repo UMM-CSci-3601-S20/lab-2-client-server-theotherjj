@@ -80,10 +80,16 @@ public class TodoDatabase{
     String orderByTarget = queryParams.get("orderBy").get(0);
     switch (orderByTarget) {
      case "owner":
+     filteredTodos = orderByOwner(filteredTodos, orderByTarget);
+     break;
 
      case "category":
+     filteredTodos = orderByCategory(filteredTodos, orderByTarget);
+     break;
 
      case "body":
+     filteredTodos = orderByBody(filteredTodos, orderByTarget);
+     break;
 
      case "status":
      Todo[] completeTodos = filterTodoByStatus(filteredTodos, "complete");
@@ -189,7 +195,19 @@ public class TodoDatabase{
     return results;
     }
 
-    //Combining two arrays - for testing
+  public Todo[] orderByOwner(Todo[] todos, String targetOrderBy){
+    return Arrays.stream(todos).sorted((p1,p2) -> p1.owner.compareTo(p2.owner)).toArray(Todo[]::new);
+  }
+
+  public Todo[] orderByBody(Todo[] todos, String targetOrderBy){
+    return Arrays.stream(todos).sorted((p1,p2) -> p1.body.compareTo(p2.body)).toArray(Todo[]::new);
+  }
+
+  public Todo[] orderByCategory(Todo[] todos, String targetOrderBy){
+    return Arrays.stream(todos).sorted((p1,p2) -> p1.category.compareTo(p2.category)).toArray(Todo[]::new);
+  }
+
+    //Combining two arrays for status ordering - for testing
     public static Todo[] combine(Todo[] completeTodos, Todo[] incompleteTodos) {
       int length = completeTodos.length + incompleteTodos.length;
       Todo[] result = new Todo[length];
