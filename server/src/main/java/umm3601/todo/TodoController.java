@@ -34,8 +34,6 @@ public class TodoController {
     if (todo != null) {
       ctx.json(todo);
       ctx.status(201);
-    } else {
-      throw new NotFoundResponse("No user with id " + id + " was found.");
     }
   }
 

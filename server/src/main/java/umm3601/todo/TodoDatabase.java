@@ -1,4 +1,3 @@
-
 package umm3601.todo;
 
 import java.io.IOException;
@@ -75,30 +74,59 @@ public class TodoDatabase{
       filteredTodos = filterTodoByStatus(filteredTodos, targetStatus);
     }
 
+    // Sort todos
+    if (queryParams.containsKey("orderBy")){
+    String orderByTarget = queryParams.get("orderBy").get(0);
+    switch (orderByTarget) {
+     case "owner":
+     filteredTodos = orderByOwner(filteredTodos, orderByTarget);
+     break;
 
-      // Limit result numbers
-      if (queryParams.containsKey("limit")) {
-        String targetLimit = queryParams.get("limit").get(0);
-        targetLimit = targetLimit.trim(); // Trim white spaces around numbers
-        if (targetLimit.matches("[0-9]+") && targetLimit.length() <= 4) { // If target length is less than 9999
-         int limit = Integer.valueOf(targetLimit);
-         if (getSize(filteredTodos) > limit) {
-         filteredTodos = limitTodosList(filteredTodos, limit);
-         }
+     case "category":
+     filteredTodos = orderByCategory(filteredTodos, orderByTarget);
+     break;
+
+     case "body":
+     filteredTodos = orderByBody(filteredTodos, orderByTarget);
+     break;
+
+     case "status":
+     Todo[] completeTodos = filterTodoByStatus(filteredTodos, "complete");
+     Todo[] incompleteTodos = filterTodoByStatus(filteredTodos, "incomplete");
+     Todo[] concatenateTodos = combine(completeTodos,incompleteTodos);
+     filteredTodos = concatenateTodos;
+     break;
+
+
+
+
+     default:
+     }
+    }
+
+    // Limit result numbers
+    if (queryParams.containsKey("limit")) {
+      String targetLimit = queryParams.get("limit").get(0);
+      targetLimit = targetLimit.trim(); // Trim white spaces around numbers
+      if (targetLimit.matches("[0-9]+") && targetLimit.length() <= 4) { // If target length is less than 9999
+        int limit = Integer.valueOf(targetLimit);
+        if (getSize(filteredTodos) > limit) {
+        filteredTodos = limitTodosList(filteredTodos, limit);
         }
-        /* If target length is greater than 4 digits (9999), we may reach the integer size limit (5 digits).
-           Any database is finite. Rather than use a long type which can also run out, we check if the string
-           (composed only of numbers) is longer than the known size of our database (with a safety margin). If we don't know the
-           size of our database within a reasonable margin, code elements such as variables, which are tied to hardware,
-           ultimately, may start breaking down.
-        */
-        else if (targetLimit.matches("[0-9]+") && targetLimit.length() > 4)
-        {
-          filteredTodos = allTodos;
-        }    else {
-        filteredTodos = limitTodosList(filteredTodos, 0);
-       }
       }
+      /* If target length is greater than 4 digits (9999), we may reach the integer size limit (5 digits).
+          Any database is finite. Rather than use a long type which can also run out, we check if the string
+          (composed only of numbers) is longer than the known size of our database (with a safety margin). If we don't know the
+          size of our database within a reasonable margin, code elements such as variables, which are tied to hardware,
+          ultimately, may start breaking down.
+      */
+      else if (targetLimit.matches("[0-9]+") && targetLimit.length() > 4)
+      {
+        filteredTodos = allTodos;
+      }    else {
+      filteredTodos = limitTodosList(filteredTodos, 0);
+      }
+    }
     // Process other query parameters here...
 
     return filteredTodos;
@@ -166,6 +194,26 @@ public class TodoDatabase{
     return results;
     }
 
+  public Todo[] orderByOwner(Todo[] todos, String targetOrderBy){
+    return Arrays.stream(todos).sorted((p1,p2) -> p1.owner.compareTo(p2.owner)).toArray(Todo[]::new);
+  }
+
+  public Todo[] orderByBody(Todo[] todos, String targetOrderBy){
+    return Arrays.stream(todos).sorted((p1,p2) -> p1.body.compareTo(p2.body)).toArray(Todo[]::new);
+  }
+
+  public Todo[] orderByCategory(Todo[] todos, String targetOrderBy){
+    return Arrays.stream(todos).sorted((p1,p2) -> p1.category.compareTo(p2.category)).toArray(Todo[]::new);
+  }
+
+    //Combining two arrays for status ordering - for testing
+    public static Todo[] combine(Todo[] completeTodos, Todo[] incompleteTodos) {
+      int length = completeTodos.length + incompleteTodos.length;
+      Todo[] result = new Todo[length];
+      System.arraycopy(completeTodos, 0, result, 0, completeTodos.length);
+      System.arraycopy(incompleteTodos, 0, result, completeTodos.length, incompleteTodos.length);
+      return result;
+  }
+
 
 }
-
