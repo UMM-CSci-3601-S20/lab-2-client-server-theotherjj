@@ -74,33 +74,46 @@ public class TodoDatabase{
       filteredTodos = filterTodoByStatus(filteredTodos, targetStatus);
     }
 
+    // Search entries for words
+    if (queryParams.containsKey("contains")) {
+      String searchTerm = queryParams.get("contains").get(0);
+      searchTerm = searchTerm.toLowerCase();
+      filteredTodos = searchBody(filteredTodos, searchTerm);
+    }
+
     // Limit result numbers
     if (queryParams.containsKey("limit")) {
-      String targetLimit = queryParams.get("limit").get(0);
-      targetLimit = targetLimit.trim(); // Trim white spaces around numbers
-      if (targetLimit.matches("[0-9]+") && targetLimit.length() <= 4) { // If target length is less than 9999
-        int limit = Integer.valueOf(targetLimit);
-        if (getSize(filteredTodos) > limit) {
-        filteredTodos = limitTodosList(filteredTodos, limit);
-        }
+    String targetLimit = queryParams.get("limit").get(0);
+    targetLimit = targetLimit.trim(); // Trim white spaces around numbers
+    if (targetLimit.matches("[0-9]+") && targetLimit.length() <= 4) { // If target length is less than 9999
+      int limit = Integer.valueOf(targetLimit);
+      if (getSize(filteredTodos) > limit) {
+      filteredTodos = limitTodosList(filteredTodos, limit);
       }
-      /* If target length is greater than 4 digits (9999), we may reach the integer size limit (5 digits).
-          Any database is finite. Rather than use a long type which can also run out, we check if the string
-          (composed only of numbers) is longer than the known size of our database (with a safety margin). If we don't know the
-          size of our database within a reasonable margin, code elements such as variables, which are tied to hardware,
-          ultimately, may start breaking down.
-      */
-      else if (targetLimit.matches("[0-9]+") && targetLimit.length() > 4)
-      {
-        filteredTodos = allTodos;
-      }    else {
-      filteredTodos = limitTodosList(filteredTodos, 0);
-      }
+     }
+
+    /* If target length is greater than 4 digits (9999), we may reach the integer size limit (5 digits).
+        Any database is finite. Rather than use a long type which can also run out, we check if the string
+        (composed only of numbers) is longer than the known size of our database (with a safety margin). If we don't know the
+        size of our database within a reasonable margin, code elements such as variables, which are tied to hardware,
+        ultimately, may start breaking down.
+    */
+    else if (targetLimit.matches("[0-9]+") && targetLimit.length() > 4)
+    {
+      filteredTodos = allTodos;
     }
+    else {
+    filteredTodos = limitTodosList(filteredTodos, 0);
+    }
+  }
+
   // Process other query parameters here...
 
-    return filteredTodos;
-  }
+  return filteredTodos;
+
+}
+
+
 
   /**
    * Get an array of all the todos having the target owner.
@@ -149,13 +162,12 @@ public class TodoDatabase{
 
    /**
   * Limit the number of results in array.
-  * @param users         the list of users to filter by company
+  * @param todos         the list of todos to limit
   * @param limit the number of items the list should be limited to
-  * @return an array of all the users from the given list that contains
+  * @return an array of all the todos from the given list that contains
   * no more items than specified
   */
   public Todo[] limitTodosList(Todo[] todos, int limit) {
-    //return Arrays.stream(todos).limit(limit).toArray(Todo[]::new);
     Todo[] results = new Todo[limit];
     for(int i = 0; i < limit; i++){
     results [i] = todos[i];
@@ -163,6 +175,19 @@ public class TodoDatabase{
 
     return results;
     }
+
+
+  /**
+  * Search queries for strings
+  * @param todos  the list of todos to search
+  * @param searchTerm the string the user searches for
+  * @return an array of all the todos from the given list that contain
+  * the search term the user wants
+  */
+  public Todo[] searchBody(Todo[] todos, String searchTerm) {
+   return Arrays.stream(todos).filter(x -> x.body.toLowerCase().contains(searchTerm)).toArray(Todo[]::new);
+  }
+
 
 
 }
