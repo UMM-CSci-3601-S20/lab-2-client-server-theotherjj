@@ -86,6 +86,14 @@ public class TodoDatabase{
      case "body":
 
      case "status":
+     Todo[] completeTodos = filterTodoByStatus(filteredTodos, "complete");
+     Todo[] incompleteTodos = filterTodoByStatus(filteredTodos, "incomplete");
+     Todo[] concatenateTodos = combine(completeTodos,incompleteTodos);
+     filteredTodos = concatenateTodos;
+     break;
+
+
+
 
      default:
      }
@@ -180,6 +188,15 @@ public class TodoDatabase{
 
     return results;
     }
+
+    //Combining two arrays - for testing
+    public static Todo[] combine(Todo[] completeTodos, Todo[] incompleteTodos) {
+      int length = completeTodos.length + incompleteTodos.length;
+      Todo[] result = new Todo[length];
+      System.arraycopy(completeTodos, 0, result, 0, completeTodos.length);
+      System.arraycopy(incompleteTodos, 0, result, completeTodos.length, incompleteTodos.length);
+      return result;
+  }
 
 
 }
