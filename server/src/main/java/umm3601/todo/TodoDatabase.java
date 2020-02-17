@@ -90,6 +90,7 @@ public class TodoDatabase{
       if (getSize(filteredTodos) > limit) {
       filteredTodos = limitTodosList(filteredTodos, limit);
       }
+     }
     }
     /* If target length is greater than 4 digits (9999), we may reach the integer size limit (5 digits).
         Any database is finite. Rather than use a long type which can also run out, we check if the string
