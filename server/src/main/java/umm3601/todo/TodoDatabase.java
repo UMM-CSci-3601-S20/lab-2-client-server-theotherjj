@@ -67,7 +67,6 @@ public class TodoDatabase{
       filteredTodos = filterTodoByCategory(filteredTodos, targetCategory);
     }
 
-
     // Filter by status
     if (queryParams.containsKey("status")) {
       String targetStatus = queryParams.get("status").get(0);
@@ -102,7 +101,7 @@ public class TodoDatabase{
 
      default:
      }
-    }
+
 
     // Limit result numbers
     if (queryParams.containsKey("limit")) {
@@ -131,6 +130,14 @@ public class TodoDatabase{
 
     return filteredTodos;
   }
+
+  // Process other query parameters here...
+
+  return filteredTodos;
+
+}
+
+
 
   /**
    * Get an array of all the todos having the target owner.
@@ -179,13 +186,12 @@ public class TodoDatabase{
 
    /**
   * Limit the number of results in array.
-  * @param users         the list of users to filter by company
+  * @param todos         the list of todos to limit
   * @param limit the number of items the list should be limited to
-  * @return an array of all the users from the given list that contains
+  * @return an array of all the todos from the given list that contains
   * no more items than specified
   */
   public Todo[] limitTodosList(Todo[] todos, int limit) {
-    //return Arrays.stream(todos).limit(limit).toArray(Todo[]::new);
     Todo[] results = new Todo[limit];
     for(int i = 0; i < limit; i++){
     results [i] = todos[i];
