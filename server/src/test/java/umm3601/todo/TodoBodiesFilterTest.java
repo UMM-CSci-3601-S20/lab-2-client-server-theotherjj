@@ -54,7 +54,6 @@ public class TodoBodiesFilterTest{
   public void bodyFilterWithLimit() throws IOException{
     TodoDatabase db = new TodoDatabase("/todos.json");
     Map<String, List<String>> queryParams = new HashMap<>();
-
     queryParams.put("contains", Arrays.asList(new String[] {"tempor ullamco"}));
     queryParams.put("limit", Arrays.asList(new String[] { "2" }));
     Todo[] limitTodosTempor = db.listTodos(queryParams);

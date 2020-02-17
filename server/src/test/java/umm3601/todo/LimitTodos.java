@@ -46,18 +46,4 @@ public class LimitTodos {
     assertNotEquals(counter, 10, "Incorrect total");
   }
 
-  // @Test
-  // public void negativeTodoCount() throws IOException {
-  //   TodoDatabase db = new TodoDatabase("/todos.json");
-  //   Todo[] allTodos = db.listTodos(new HashMap<>());
-  //   try {
-  //     db.limitTodosList(allTodos, -1);
-  //   } catch (Exception e) {
-  //     Assertions.fail("Exception " + e);
-  //   }
-  // }
-
-
-
-
 }

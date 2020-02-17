@@ -94,6 +94,7 @@ public class TodoDatabase{
     // Search entries for words
     if (queryParams.containsKey("contains")) {
       String searchTerm = queryParams.get("contains").get(0);
+      searchTerm = searchTerm.toLowerCase();
       filteredTodos = searchBody(filteredTodos, searchTerm);
     }
     // Process other query parameters here...
@@ -174,7 +175,7 @@ public class TodoDatabase{
   */
   public Todo[] searchBody(Todo[] todos, String searchTerm) {
    // int found = 0;
-   return Arrays.stream(todos).filter(x -> x.body.contains(searchTerm)).toArray(Todo[]::new);
+   return Arrays.stream(todos).filter(x -> x.body.toLowerCase().contains(searchTerm)).toArray(Todo[]::new);
   }
 
 
