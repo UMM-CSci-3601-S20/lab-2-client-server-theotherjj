@@ -76,17 +76,7 @@ public class TodoDatabase{
     }
 
 
-<<<<<<< HEAD
-     //Limit result numbers
-     if (queryParams.containsKey("limit")) {
-      String targetLimit = queryParams.get("limit").get(0);
-      int limit = Integer.valueOf(targetLimit);
-     if (getSize(filteredTodos) >= limit) {
-       filteredTodos = limitTodosList(filteredTodos, limit);
-     }
 
-    }
-=======
       // Limit result numbers
       if (queryParams.containsKey("limit")) {
         String targetLimit = queryParams.get("limit").get(0);
@@ -110,7 +100,7 @@ public class TodoDatabase{
         filteredTodos = limitTodosList(filteredTodos, 0);
        }
       }
->>>>>>> master
+
     // Process other query parameters here...
 
     return filteredTodos;
@@ -180,4 +170,3 @@ public class TodoDatabase{
 
 
 }
-
